@@ -1,14 +1,13 @@
-import React,{useState} from 'react'
+import React, {useState} from 'react'
 import './Navbar.scss'
 import { HiMenuAlt4, HiX} from 'react-icons/hi'
 import { motion } from 'framer-motion'
 import { images } from '../../constants'
-import { useState } from 'react'
 
 const navItems = ['home','about','work','skills','contact'];
 
 const Navbar = () => {
-  const [toggle, settoggle] = useState(false)
+  const [toggle, setToggle] = useState(false)
 
   return (
     <nav className='app__navbar'>
@@ -27,9 +26,17 @@ const Navbar = () => {
       <div className='app__navbar-menu'>
           <HiMenuAlt4 onClick={() => setToggle(true)}/>
           { toggle && (
-              <motion.div>
+              <motion.div
                 whileInView= {{ x: [300,0]}}
                 transition={{duration: 0.85, ease: 'easeOut'}}
+              >
+                <HiX onClick={ ()=> setToggle(false)}/>
+              
+                { navItems.map((item)=> (
+                <li  key={item}>
+                  <a href={`#${item}`} onClick={ ()=> setToggle(false)}>{item}</a>
+                </li>
+              ))}
               </motion.div>
             )}
 
